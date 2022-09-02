@@ -642,9 +642,11 @@ public class ConfigurationUtil {
      * @param schemaClass Configuration schema class.
      */
     public static List<Field> schemaFields(Class<?> schemaClass) {
-        return Arrays.stream(schemaClass.getDeclaredFields())
+        List<Field> schemaFields = Arrays.stream(schemaClass.getDeclaredFields())
                 .filter(f -> isValue(f) || isConfigValue(f) || isNamedConfigValue(f) || isPolymorphicId(f) || isInjectedName(f))
                 .collect(toList());
+        Collections.sort(schemaFields);
+        return schemaFields;
     }
 
     /**
